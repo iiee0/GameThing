@@ -101,10 +101,7 @@ function newmap() {
 	}
 }
 
-function preload() {
-	//robotoThin = loadFont('assets/Roboto-Thin.ttf/');
-	//robotoBold = loadFont('assets/Roboto-Bold.ttf/');
-}
+
 
 function setup() {
 	createCanvas(windowWidth, windowHeight - 3.6);
@@ -157,7 +154,7 @@ function draw() {
 		textSize(70);
 		textFont('RobotoThin');
 		strokeWeight(1);
-		text('Level: ', 100, 55);
+		text('Level: ' + level, 100, 55);
 
 		//map drawing
 		for (var i = 0; i < gamemap.length; i++) {
