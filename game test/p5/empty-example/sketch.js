@@ -6,6 +6,9 @@ var player = {
 
 let pregame = 1;
 
+let RobotoThin;
+let RobotoBold;
+
 let level = 1;
 
 let dead = 0;
@@ -50,10 +53,7 @@ function newmap() {
 
 		//generation direction
 		let genDir = random(tried);
-		
-		if (mapLength === level) {
-			gamemap[mapCurX][mapCurY] = 3;
-		}
+
 
 		if(mapLength === 0) {
 			gamemap[mapCurX][mapCurY] = 2;
@@ -96,9 +96,14 @@ function newmap() {
 	}
 }
 
+function preload() {
+	robotoThin = loadFont('assets/Roboto-Thin.ttf/');
+	robotoBold = loadFont('assets/Roboto-Bold.ttf/');
+}
+
 function setup() {
 	createCanvas(windowWidth, windowHeight - 3.6);
-	//newmap();
+	newmap();
 }
 
 function draw() {
@@ -112,6 +117,7 @@ function draw() {
 		//title
 
 		fill('black');
+		textFont(robotoBold)
 		textSize(250);
 		textAlign(CENTER);
 		text('Mouse Maze', windowWidth/2, windowHeight/2 - 50);
@@ -148,7 +154,7 @@ function draw() {
 		rect(0, 0, windowWidth, 75);
 		fill(0);
 		textSize(70);
-		textFont('Roboto');
+		textFont('RobotoThin');
 		strokeWeight(1);
 		text('Level: ', 100, 55);
 
