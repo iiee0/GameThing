@@ -39,7 +39,14 @@ let deadColor = '#2C2F33';
 
 function newmap() {
 
-
+	gamemap = [
+	[0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0]
+	]; 
 	//0: positive y, 1: negative y, 2: positive x, 3: negative x
 	let tried = [0, 1, 2, 3];
 
@@ -61,7 +68,7 @@ function newmap() {
 				gamemap[mapCurX][mapCurY + 1] = 1;
 				mapCurY++;
 			} else {
-				tried.splice(tried[GenDir], 1);
+				tried.splice(tried[genDir], 1);
 				continue;
 			}
 		} else if (genDir === 1) {
@@ -70,7 +77,7 @@ function newmap() {
 				gamemap[mapCurX][mapCurY - 1] = 1;
 				mapCurY--;
 			} else {
-				tried.splice(tried[GenDir], 1);
+				tried.splice(tried[genDir], 1);
 				continue;
 			}
 		} else if (genDir === 2) {
@@ -80,11 +87,11 @@ function newmap() {
 					gamemap[mapCurX + 1][mapCurY] = 1;
 					mapCurX++;
 				} else {
-					tried.splice(tried[GenDir], 1);
+					tried.splice(tried[genDir], 1);
 					continue;
 				}
 			} else {
-				tried.splice(tried[GenDir], 1);
+				tried.splice(tried[genDir], 1);
 				continue;
 			}
 		} else if (genDir === 3) {
@@ -93,7 +100,7 @@ function newmap() {
 				gamemap[mapCurX - 1][mapCurY] = 1;
 				mapCurX--;
 			} else {
-				tried.splice(tried[GenDir], 1);
+				tried.splice(tried[genDir], 1);
 				continue;
 			}
 		}
@@ -220,14 +227,6 @@ function draw() {
 					|| (player.colTopLeft === winColor)) {
 					//console.log('win');
 					level++;
-					gamemap = [
-					[0, 0, 0, 0, 0, 0], 
-					[0, 0, 0, 0, 0, 0], 
-					[0, 0, 0, 0, 0, 0], 
-					[0, 0, 0, 0, 0, 0], 
-					[0, 0, 0, 0, 0, 0], 
-					[0, 0, 0, 0, 0, 0]
-					]; 
 					newmap();
 				}
 			}
