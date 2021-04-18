@@ -12,6 +12,7 @@ let RobotoBold;
 let level = 1;
 
 let dead = 0;
+let win = 0;
 
 let tileWidth = 100;
 let c;
@@ -54,51 +55,55 @@ function newmap() {
 		//generation direction
 		let genDir = random(tried);
 
-
-		if(mapLength === 0) {
-			gamemap[mapCurX][mapCurY] = 2;
-		}
-
 		if (genDir === 0) {
-			if(mapCurY !== gamemap[0].length) {
+			if(mapCurY !== gamemap[0].length && gamemap[mapCurX][mapCurY + 1] === 0) {
 				tried = [0, 1, 2, 3];
 				gamemap[mapCurX][mapCurY + 1] = 1;
+				mapCurY++;
 			} else {
 				tried.splice(tried.index(genDir), 1);
 				continue;
 			}
 		} else if (genDir === 1) {
-			if(mapCurY !== 0) {
+			if(mapCurY !== 0 && gamemap[mapCurX][mapCurY - 1] === 0) {
 				tried = [0, 1, 2, 3];
 				gamemap[mapCurX][mapCurY - 1] = 1;
+				mapCurY--;
 			} else {
 				tried.splice(tried.index(genDir), 1);
 				continue;
 			}
 		} else if (genDir === 2) {
-			if(mapCurX !== gamemap.length) {
+			if(mapCurX !== 0 && gamemap[mapCurX + 1][mapCurY] === 0) {
 				tried = [0, 1, 2, 3];
 				gamemap[mapCurX + 1][mapCurY] = 1;
+				mapCurX++;
 			} else {
 				tried.splice(tried.index(genDir), 1);
 				continue;
 			}
 		} else if (genDir === 3) {
-			if(mapCurX !== 0) {
+			if(mapCurX !== gamemap.length && gamemap[mapCurX - 1][mapCurY] === 0) {
 				tried = [0, 1, 2, 3];
 				gamemap[mapCurX - 1][mapCurY] = 1;
+				mapCurX--;
 			} else {
 				tried.splice(tried.index(genDir), 1);
 				continue;
 			}
+		}
+
+
+		if(mapLength === 0) {
+			gamemap[mapCurX][mapCurY] = 2;
 		}
 		mapLength--;
 	}
 }
 
 function preload() {
-	robotoThin = loadFont('assets/Roboto-Thin.ttf/');
-	robotoBold = loadFont('assets/Roboto-Bold.ttf/');
+	//robotoThin = loadFont('assets/Roboto-Thin.ttf/');
+	//robotoBold = loadFont('assets/Roboto-Bold.ttf/');
 }
 
 function setup() {
@@ -109,7 +114,6 @@ function setup() {
 function draw() {
 
 	//setup
-
 	if (pregame	=== 1) {
 
 		background('white');
@@ -117,7 +121,7 @@ function draw() {
 		//title
 
 		fill('black');
-		textFont(robotoBold)
+		//textFont(robotoBold)
 		textSize(250);
 		textAlign(CENTER);
 		text('Mouse Maze', windowWidth/2, windowHeight/2 - 50);
@@ -139,9 +143,6 @@ function draw() {
 		text('Play', windowWidth/2, windowHeight/2 + 120);
 
 		//detecting if pressin play button
-
-
-
 
 	} else {
 
@@ -216,6 +217,8 @@ function draw() {
 					|| (player.colBotRight === winColor) 
 					|| (player.colTopLeft === winColor)) {
 					//console.log('win');
+					level++;
+					newmap();
 				}
 			}
 
