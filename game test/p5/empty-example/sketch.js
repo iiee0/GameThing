@@ -37,6 +37,8 @@ let gamestart = 0;
 let winColor = '#FFFF00';
 let deadColor = '#2C2F33';
 
+
+
 function newmap() {
 
 	gamemap = [
@@ -164,9 +166,9 @@ function draw() {
 		rect(0, 0, windowWidth, 75);
 		fill(0);
 		textSize(70);
-		textFont('RobotoThin');
+		//textFont('RobotoThin');
 		strokeWeight(1);
-		text('Level: ' + level, 100, 55);
+		text('Level: ' + level, 200, 65);
 
 		//map drawing
 		for (var i = 0; i < gamemap.length; i++) {
@@ -199,7 +201,7 @@ function draw() {
 			if (dead === 1) {
 				gamestart = 0;
 				cursor(ARROW);
-				dead = 0;
+				dead = 0;	
 			}
 
 			//player collision box
@@ -262,8 +264,7 @@ function draw() {
 
 		if (paused === 1) {
 
-			cursor(ARROW);
-			gamestart = 0;
+
 
 			//background dimming
 			if (backgroundDim < 150) {
@@ -278,6 +279,31 @@ function draw() {
 			}
 			fill('white');
 			rect(windowWidth/2 - 500/2, pauseMenuX*windowHeight*0.5 - 750/2, 500, 750);
+
+			//paused sign
+
+
+			fill('black');
+			text('PAUSED', windowWidth/2, windowHeight/2- 150);
+
+			//resume button
+			if (mouseX > windowWidth/2 - 500/2 && mouseX < windowWidth/2 + 500/2) {
+				if (mouseY > windowHeight/2 && mouseY < windowHeight/2 + 150) {
+					fill('black');
+				} else {
+					fill('white');
+				}
+			} else {
+				fill('white');
+			}
+			stroke(1);
+			strokeWeight(15);
+			rect(windowWidth/2 - 350/2, windowHeight/2 + 20, 350, 100);
+			textSize(75);
+			noStroke();
+			fill('black');
+			text('Resume', windowWidth/2, windowHeight/2 + 100);
+
 			
 		} else {
 			//background un-dimming
@@ -294,6 +320,10 @@ function draw() {
 			fill('white');
 			rect(windowWidth/2 - 500/2, pauseMenuX*windowHeight*0.5 - 750, 500, 750);
 		}
+
+
+
+
 	}
 
 	//console
@@ -322,5 +352,10 @@ function mouseClicked() {
 		}
 	}
 
+	if (mouseX > windowWidth/2 - 350/2 && mouseX < windowWidth/2 + 350/2) {
+		if (mouseY > windowHeight/2 && mouseY < windowHeight/2 + 100) {
+			paused = 0;
+		}
+	}
 
 }
