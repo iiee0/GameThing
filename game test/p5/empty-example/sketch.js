@@ -5,6 +5,7 @@ var player = {
 }
 
 let pregame = 1;
+let howtoplay = 1;
 
 let RobotoThin;
 let RobotoBold;
@@ -65,7 +66,7 @@ function newmap() {
 		let genDir = random(tried);
 
 		if (genDir === 0) {
-			if(mapCurY !== gamemap[0].length && gamemap[mapCurX][mapCurY + 1] === 0) {
+			if(mapCurY !== gamemap[0].length - 1 && gamemap[mapCurX][mapCurY + 1] === 0) {
 				tried = [0, 1, 2, 3];
 				gamemap[mapCurX][mapCurY + 1] = 1;
 				mapCurY++;
@@ -97,7 +98,7 @@ function newmap() {
 				continue;
 			}
 		} else if (genDir === 3) {
-			if(mapCurX !== gamemap.length && gamemap[mapCurX - 1][mapCurY] === 0) {
+			if(mapCurX !== gamemap.length - 1 && gamemap[mapCurX - 1][mapCurY] === 0) {
 				tried = [0, 1, 2, 3];
 				gamemap[mapCurX - 1][mapCurY] = 1;
 				mapCurX--;
@@ -152,6 +153,27 @@ function draw() {
 		textSize(75);
 		fill('white');
 		text('Play', windowWidth/2, windowHeight/2 + 120);
+
+		if(howtoplay === 1) {
+			rect(windowWidth/2 - 250, windowHeight/2 - 250, 500, 500);
+
+
+			if (mouseX > windowWidth/2 + 500/2 - 25 && mouseX < windowWidth/2 + 500/2 + 25) {
+				if (mouseY > windowHeight/2 - 500/2 - 25 && mouseY < windowHeight/2 - 500/2 + 25) {
+					fill('white');
+				} else {
+					fill('black');
+				}
+			} else {
+				fill('black');
+			}
+
+
+			
+			ellipse(windowWidth/2+250, windowHeight/2 - 250, 50, 50);
+
+
+		}
 
 		//detecting if pressin play button
 
@@ -355,6 +377,12 @@ function mouseClicked() {
 	if (mouseX > windowWidth/2 - 350/2 && mouseX < windowWidth/2 + 350/2) {
 		if (mouseY > windowHeight/2 && mouseY < windowHeight/2 + 100) {
 			paused = 0;
+		}
+	}
+
+	if (mouseX > windowWidth/2 + 500/2 - 25 && mouseX < windowWidth/2 + 500/2 + 25) {
+		if (mouseY > windowHeight/2 - 500/2 - 25 && mouseY < windowHeight/2 - 500/2 + 25) {
+			howtoplay = 0;
 		}
 	}
 
