@@ -167,10 +167,9 @@ function draw() {
 			} else {
 				fill('black');
 			}
-
-
 			
 			ellipse(windowWidth/2+250, windowHeight/2 - 250, 50, 50);
+			text('How To Play: ', windowWidth/2, windowHeight/2)
 
 
 		}
