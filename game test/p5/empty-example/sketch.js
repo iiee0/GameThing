@@ -24,14 +24,19 @@ let paused = 0;
 
 let endMenuX = 0;
 
+
+let timerS = 59;
+let timerMs = 100;
+
 //0: dead, 1: live, 2: win, 3: start
 let gamemap = [
-[0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0]
 ]; 
  
 let gamestart = 0;
@@ -43,12 +48,13 @@ let deadColor = '#2C2F33';
 function newmap() {
 
 	gamemap = [
-	[0, 0, 0, 0, 0, 0], 
-	[0, 0, 0, 0, 0, 0], 
-	[0, 0, 0, 0, 0, 0], 
-	[0, 0, 0, 0, 0, 0], 
-	[0, 0, 0, 0, 0, 0], 
-	[0, 0, 0, 0, 0, 0]
+	[0, 0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0, 0]
 	]; 
 	//0: positive y, 1: negative y, 2: positive x, 3: negative x
 	let tried = [0, 1, 2, 3];
@@ -117,6 +123,13 @@ function newmap() {
 }
 
 
+function timerSubtract() {
+	timerMs -= 1;
+	if (timerMs === 0) {
+		timerMs = 100;
+		timerS -= 1;
+	}
+}
 
 function setup() {
 	createCanvas(windowWidth, windowHeight - 3.6);
@@ -154,8 +167,23 @@ function draw() {
 		fill('white');
 		text('Play', windowWidth/2, windowHeight/2 + 120);
 
+		if (mouseX > windowWidth/2 - 500/2 && mouseX < windowWidth/2 + 500/2) {
+			if (mouseY > windowHeight/2 + 200 && mouseY < windowHeight/2 + 200 + 100) {
+				fill('white');
+			} else {
+				fill('black');
+			}
+		} else {
+			fill('black');
+		}
+		strokeWeight(15);
+		rect(windowWidth/2 - 500/2, windowHeight/2 + 200, 500, 100);
+		textSize(75);
+		fill('white');
+		text('How To Play', windowWidth/2, windowHeight/2 + 270);
+
 		if(howtoplay === 1) {
-			rect(windowWidth/2 - 250, windowHeight/2 - 250, 500, 500);
+			rect(windowWidth/2 - 250, windowHeight/2 - 250, 500, 600);
 
 
 			if (mouseX > windowWidth/2 + 500/2 - 25 && mouseX < windowWidth/2 + 500/2 + 25) {
@@ -182,6 +210,7 @@ function draw() {
 
 		background(deadColor);
 
+
 		//scoreboard
 		fill('#FFFFFF');
 		noStroke();
@@ -190,7 +219,13 @@ function draw() {
 		textSize(70);
 		//textFont('RobotoThin');
 		strokeWeight(1);
+
+		textAlign(CENTER);
 		text('Level: ' + level, 200, 65);
+
+		textAlign(LEFT);
+		text(timerS + '.' + timerMs, windowWidth - 200, 65)
+
 
 		//map drawing
 		for (var i = 0; i < gamemap.length; i++) {
@@ -218,6 +253,7 @@ function draw() {
 		
 		if (paused === 0) {
 
+			setTimeout(timerSubtract, 1);
 			//game over
 
 			if (dead === 1) {
@@ -279,6 +315,10 @@ function draw() {
 				rect(mouseX - player.width/2, mouseY - player.width/2, player.width, player.width);
 			}
 
+			if (timerS === 0 && timerMs <= 1) {
+				pregame = 1;
+			}
+
 		}
 
 
@@ -304,13 +344,13 @@ function draw() {
 
 			//paused sign
 
-
+			textAlign(CENTER);
 			fill('black');
-			text('PAUSED', windowWidth/2, windowHeight/2- 150);
+			text('PAUSED', windowWidth/2,pauseMenuX*windowHeight*0.5- 150);
 
 			//resume button
 			if (mouseX > windowWidth/2 - 500/2 && mouseX < windowWidth/2 + 500/2) {
-				if (mouseY > windowHeight/2 && mouseY < windowHeight/2 + 150) {
+				if (mouseY > windowHeight/2 + 50 && mouseY < windowHeight/2 + 150) {
 					fill('black');
 				} else {
 					fill('white');
@@ -320,11 +360,13 @@ function draw() {
 			}
 			stroke(1);
 			strokeWeight(15);
-			rect(windowWidth/2 - 350/2, windowHeight/2 + 20, 350, 100);
+			rect(windowWidth/2 - 350/2, pauseMenuX*windowHeight*0.5 + 20, 350, 100);
 			textSize(75);
 			noStroke();
 			fill('black');
-			text('Resume', windowWidth/2, windowHeight/2 + 100);
+			text('Resume', windowWidth/2, pauseMenuX*windowHeight*0.5 + 100);
+
+			text(timerS + '.' + timerMs, windowWidth/2, pauseMenuX*windowHeight*0.5 + 280)
 
 			
 		} else {
@@ -368,14 +410,17 @@ function mouseClicked() {
 
 	//pregame play
 
-	if (mouseX > windowWidth/2 - 500/2 && mouseX < windowWidth/2 + 500/2) {
-		if (mouseY > windowHeight/2 + 50 && mouseY < windowHeight/2 + 150) {
-			pregame = 0;
+	if (howtoplay === 0) {
+		if (mouseX > windowWidth/2 - 500/2 && mouseX < windowWidth/2 + 500/2) {
+			if (mouseY > windowHeight/2 + 50 && mouseY < windowHeight/2 + 150) {
+				pregame = 0;
+			}
 		}
 	}
 
+
 	if (mouseX > windowWidth/2 - 350/2 && mouseX < windowWidth/2 + 350/2) {
-		if (mouseY > windowHeight/2 && mouseY < windowHeight/2 + 100) {
+		if (mouseY > windowHeight/2 && mouseY < windowHeight/2 + 150) {
 			paused = 0;
 		}
 	}
@@ -383,6 +428,12 @@ function mouseClicked() {
 	if (mouseX > windowWidth/2 + 500/2 - 25 && mouseX < windowWidth/2 + 500/2 + 25) {
 		if (mouseY > windowHeight/2 - 500/2 - 25 && mouseY < windowHeight/2 - 500/2 + 25) {
 			howtoplay = 0;
+		}
+	}
+
+	if (mouseX > windowWidth/2 - 500/2 && mouseX < windowWidth/2 + 500/2) {
+		if (mouseY > windowHeight/2 + 200 && mouseY < windowHeight/2 + 200 + 100) {
+			howtoplay = 1;
 		}
 	}
 
