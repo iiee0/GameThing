@@ -36,6 +36,7 @@ let gamemap = [
 [0, 0, 0, 0, 0, 0, 0], 
 [0, 0, 0, 0, 0, 0, 0], 
 [0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0]
 ]; 
  
@@ -54,7 +55,9 @@ function newmap() {
 	[0, 0, 0, 0, 0, 0, 0], 
 	[0, 0, 0, 0, 0, 0, 0], 
 	[0, 0, 0, 0, 0, 0, 0], 
+	[0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0]
+
 	]; 
 	//0: positive y, 1: negative y, 2: positive x, 3: negative x
 	let tried = [0, 1, 2, 3];
@@ -94,13 +97,13 @@ function newmap() {
              if( (mapCurX - 1)<0  ){
             mapCurX = 1;
           }
-           console.log('aaaaaaaaaaaa:' + (mapCurX + 1) + ',' + mapCurY) ;
+           //console.log('aaaaaaaaaaaa:' + (mapCurX + 1) + ',' + mapCurY) ;
           
 			if(mapCurX !== 0) {
               
-                if( mapCurX >=6){
-                  mapCurX = 5;
-                }
+               // if( mapCurX >=6){
+                //  mapCurX = 5;
+                //}
               
               //  if( typeof(gamemap[mapCurX + 1][mapCurY]) !='undefined'){
                	  
@@ -122,6 +125,7 @@ function newmap() {
           if( (mapCurX - 1)<0  ){
             mapCurX = 1;
           }
+          
         //   console.log('ssssssssssssss:' + (mapCurX - 1) + ',' + mapCurY) ;
 			if(mapCurX !== gamemap.length - 1 && gamemap[mapCurX - 1][mapCurY] === 0) {
 				tried = [0, 1, 2, 3];
