@@ -90,20 +90,34 @@ function newmap() {
 				continue;
 			}
 		} else if (genDir === 2) {
+          
+             if( (mapCurX - 1)<0  ){
+            mapCurX = 1;
+          }
+          // console.log('aaaaaaaaaaaa:' + (mapCurX + 1) + ',' + mapCurY) ;
+          
 			if(mapCurX !== 0) {
-				if(gamemap[mapCurX + 1][mapCurY] === 0) {
-					tried = [0, 1, 2, 3];
-					gamemap[mapCurX + 1][mapCurY] = 1;
-					mapCurX++;
-				} else {
-					tried.splice(tried[genDir], 1);
-					continue;
+                if( typeof([mapCurX + 1][mapCurY]) =='undefined'){
+               	  
+					if(gamemap[mapCurX + 1][mapCurY] === 0) {
+						tried = [0, 1, 2, 3];
+						gamemap[mapCurX + 1][mapCurY] = 1;
+						mapCurX++;
+					} else {
+						tried.splice(tried[genDir], 1);
+						continue;
+					}
 				}
 			} else {
 				tried.splice(tried[genDir], 1);
 				continue;
 			}
 		} else if (genDir === 3) {
+          
+          if( (mapCurX - 1)<0  ){
+            mapCurX = 1;
+          }
+        //   console.log('ssssssssssssss:' + (mapCurX - 1) + ',' + mapCurY) ;
 			if(mapCurX !== gamemap.length - 1 && gamemap[mapCurX - 1][mapCurY] === 0) {
 				tried = [0, 1, 2, 3];
 				gamemap[mapCurX - 1][mapCurY] = 1;
@@ -199,6 +213,11 @@ function draw() {
 			ellipse(windowWidth/2+250, windowHeight/2 - 250, 50, 50);
 			fill('black');
 			text('How To Play: ', windowWidth/2, windowHeight/2 - 110)
+
+			textSize(45);
+			text('Hover mouse over \ngreen square and \n move the square to \n the yellow tile. Try to \n finish as many levels \n as possible in 1 \n minute', windowWidth/2 - 230, windowHeight/2 - 80, 470,400);
+
+		
 
 
 		}
