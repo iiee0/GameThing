@@ -94,10 +94,15 @@ function newmap() {
              if( (mapCurX - 1)<0  ){
             mapCurX = 1;
           }
-          // console.log('aaaaaaaaaaaa:' + (mapCurX + 1) + ',' + mapCurY) ;
+           console.log('aaaaaaaaaaaa:' + (mapCurX + 1) + ',' + mapCurY) ;
           
 			if(mapCurX !== 0) {
-                if( typeof([mapCurX + 1][mapCurY]) =='undefined'){
+              
+                if( mapCurX >=6){
+                  mapCurX = 5;
+                }
+              
+              //  if( typeof(gamemap[mapCurX + 1][mapCurY]) !='undefined'){
                	  
 					if(gamemap[mapCurX + 1][mapCurY] === 0) {
 						tried = [0, 1, 2, 3];
@@ -107,7 +112,7 @@ function newmap() {
 						tried.splice(tried[genDir], 1);
 						continue;
 					}
-				}
+				//}
 			} else {
 				tried.splice(tried[genDir], 1);
 				continue;
