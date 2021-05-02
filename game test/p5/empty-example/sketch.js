@@ -97,6 +97,8 @@ function newmap() {
              if( (mapCurX - 1)<0  ){
             mapCurX = 1;
           }
+
+          
            //console.log('aaaaaaaaaaaa:' + (mapCurX + 1) + ',' + mapCurY) ;
           
 			if(mapCurX !== 0) {
